@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viñamor Guatemala | Carta de Vinos & Menú Interactivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Glassmorphism -->
+    <header class="header">
+        <div class="header-container">
+            <div class="brand">
+                <h1>VIÑAMOR</h1>
+                <span class="subtitle">PASEO CAYALÁ · GUATEMALA</span>
+            </div>
+            <a href="https://www.instagram.com/vinamor_/" target="_blank" class="instagram-link" aria-label="Instagram">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+        </div>
+        
+        <!-- Buscador en tiempo real -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar vino, uva, spritz, café o tabla...">
+        </div>
+    </header>
+
+    <!-- Navegación por Pestañas de Categorías -->
+    <nav class="categories-nav">
+        <div class="nav-scroller" id="categoriesContainer"></div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <div class="category-header">
+            <h2 id="currentCategoryTitle">Cargando menú...</h2>
+            <p id="currentCategoryDesc" class="category-desc"></p>
+        </div>
+
+        <div class="products-grid" id="productsContainer"></div>
+    </main>
+
+    <!-- Modal Detalle de Producto -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>Viñamor Guatemala</strong> · Kiosco 9, Paseo Cayalá</p>
+        <p class="footer-sub">Carta Gastronómica & Selección de Vinos 2026</p>
+    </footer>
+
+    <!-- Archivos JavaScript (Si al archivo de datos le pones datos-menu.js en GitHub, asegúrate de mantener esa misma ruta aquí) -->
+    <script src="datos-menu.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
