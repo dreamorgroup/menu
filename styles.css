@@ -1,15 +1,16 @@
-/* Paleta de Colores Viñamor 2026 */
+/* Paleta Cava de Lujo Viñamor 2026 */
 :root {
-    --bg-primary: #FAF9F6;
+    --bg-primary: #FAFAFA;
     --bg-card: #FFFFFF;
-    --burgundy: #2C1820;
-    --burgundy-light: #4A2834;
-    --gold: #B8860B;
-    --gold-light: #D4AF37;
-    --text-dark: #1A1A1A;
+    --primary-dark: #1A1A1A;
+    --wine-accent: #4A121A;
+    --champagne-gold: #C5A059;
+    --champagne-light: #E8D5B5;
+    --text-dark: #222222;
     --text-muted: #666666;
-    --border-color: #E8E6E1;
-    --shadow-soft: 0 4px 15px rgba(44, 24, 32, 0.06);
+    --border-color: #EBF0F5;
+    --border-card: #E5E7EB;
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.04);
     --radius-card: 16px;
 }
 
@@ -28,16 +29,16 @@ body {
     padding-bottom: 40px;
 }
 
-/* Header Glassmorphism */
+/* Header Glassmorphism Elegante */
 .header {
-    background: rgba(44, 24, 32, 0.96);
+    background: rgba(26, 26, 26, 0.96);
     backdrop-filter: blur(10px);
     color: #FFFFFF;
     padding: 16px 16px 12px 16px;
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 2px solid var(--gold);
+    border-bottom: 2px solid var(--champagne-gold);
 }
 
 .header-container {
@@ -52,20 +53,20 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 1.6rem;
     letter-spacing: 2px;
-    color: var(--gold-light);
+    color: var(--champagne-gold);
     font-weight: 700;
 }
 
 .subtitle {
     font-size: 0.65rem;
     letter-spacing: 1.5px;
-    color: #D8D4CE;
+    color: #D1D5DB;
     display: block;
     margin-top: -2px;
 }
 
 .instagram-link {
-    color: var(--gold-light);
+    color: var(--champagne-gold);
     display: flex;
     align-items: center;
     padding: 6px;
@@ -80,25 +81,25 @@ body {
     width: 100%;
     padding: 10px 16px;
     border-radius: 20px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    background: rgba(255, 255, 255, 0.08);
     color: #FFFFFF;
     font-size: 0.9rem;
     outline: none;
 }
 
 .search-box input::placeholder {
-    color: #C0B8B0;
+    color: #9CA3AF;
 }
 
 /* Categorías Scroll Horizontales */
 .categories-nav {
     background: #FFFFFF;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-card);
     position: sticky;
     top: 105px;
     z-index: 90;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
 .nav-scroller {
@@ -117,7 +118,7 @@ body {
 .nav-btn {
     padding: 8px 16px;
     border-radius: 20px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-card);
     background: var(--bg-primary);
     color: var(--text-muted);
     font-size: 0.85rem;
@@ -126,16 +127,16 @@ body {
 }
 
 .nav-btn.active {
-    background: var(--burgundy);
-    color: var(--gold-light);
-    border-color: var(--burgundy);
+    background: var(--wine-accent);
+    color: var(--champagne-light);
+    border-color: var(--wine-accent);
     font-weight: 600;
 }
 
 /* Tarjetas y Rejilla de Productos */
 .main-content { max-width: 600px; margin: 0 auto; padding: 20px 16px; }
 .category-header { margin-bottom: 20px; }
-.category-header h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--burgundy); }
+.category-header h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--wine-accent); }
 .category-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
 
 .products-grid { display: flex; flex-direction: column; gap: 14px; }
@@ -143,10 +144,12 @@ body {
 .product-card {
     background: var(--bg-card);
     border-radius: var(--radius-card);
-    padding: 16px;
-    border: 1px solid var(--border-color);
+    padding: 14px 16px;
+    border: 1px solid var(--border-card);
     box-shadow: var(--shadow-soft);
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex;
+    align-items: center;
+    gap: 14px;
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
@@ -155,24 +158,47 @@ body {
     transform: scale(0.98);
 }
 
-.product-info { flex: 1; padding-right: 12px; }
-.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.68rem; font-weight: 600; margin-bottom: 6px; }
-.badge-star { background: #FFF4E5; color: #B8860B; }
+/* Imagen de Botella en la Tarjeta */
+.product-thumb {
+    width: 48px;
+    height: 72px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F9FAFB;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.product-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.product-info { flex: 1; min-width: 0; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.68rem; font-weight: 600; margin-bottom: 4px; }
+.badge-star { background: #FEF3C7; color: #92400E; }
 .badge-organic { background: #E8F5E9; color: #2E7D32; }
 
-.product-title { font-size: 1.05rem; font-weight: 600; color: var(--burgundy); }
+.product-title { font-size: 1rem; font-weight: 600; color: var(--primary-dark); line-height: 1.3; }
 .product-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
-.product-prices { text-align: right; min-width: 90px; }
-.price-tag { display: block; font-weight: 700; color: var(--burgundy); font-size: 1.05rem; }
+.product-prices { text-align: right; flex-shrink: 0; }
+.price-tag { display: block; font-weight: 700; color: var(--wine-accent); font-size: 1.05rem; }
 .price-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 400; }
 
 /* Modal Detalle */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 200; justify-content: center; align-items: flex-end; }
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); z-index: 200; justify-content: center; align-items: flex-end; }
 .modal.active { display: flex; }
 .modal-content { background: #FFFFFF; width: 100%; max-width: 600px; border-top-left-radius: 24px; border-top-right-radius: 24px; padding: 24px 20px; position: relative; max-height: 85vh; overflow-y: auto; }
 .close-modal { position: absolute; top: 16px; right: 20px; font-size: 1.8rem; border: none; background: none; color: var(--text-muted); cursor: pointer; }
-.modal-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--burgundy); margin-bottom: 6px; }
+
+.modal-img-container { text-align: center; margin-bottom: 16px; }
+.modal-img-container img { max-height: 180px; object-fit: contain; }
+
+.modal-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--wine-accent); margin-bottom: 4px; }
 .modal-desc { font-size: 0.9rem; color: #444; margin: 12px 0; line-height: 1.6; }
-.modal-pairing { background: #FAF6F0; border-left: 3px solid var(--gold); padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; color: var(--burgundy); margin-top: 14px; }
+.modal-pairing { background: #FAF5ED; border-left: 3px solid var(--champagne-gold); padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; color: var(--wine-accent); margin-top: 14px; }
 .footer { text-align: center; padding: 30px 16px 10px 16px; color: var(--text-muted); font-size: 0.8rem; }
 .footer-sub { font-size: 0.72rem; color: #999; margin-top: 4px; }
