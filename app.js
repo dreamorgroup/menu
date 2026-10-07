@@ -8,10 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBody = document.getElementById('modalBody');
     const closeModal = document.getElementById('closeModal');
 
-    // Categoría inicial predeterminada
+    // SVG de botella elegante para cuando la imagen aún no está cargada en el servidor
+    const defaultBottleSVG = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23C5A059" width="32" height="48"><path d="M11 2h2v4.17l1.71 1.71A3 3 0 0 1 15.58 10H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h.42a3 3 0 0 1 1.87-2.12L11 6.17V2z"/></svg>`;
+
     let currentCategoryId = CONFIG_MENU.categorias[0].id;
 
-    // Renderizar botones de navegación por categorías
     function renderCategories() {
         if (!CONFIG_MENU || !CONFIG_MENU.categorias) return;
         
@@ -24,14 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 currentCategoryId = e.target.getAttribute('data-id');
-                if (searchInput) searchInput.value = ''; // Limpia el buscador al cambiar de pestaña
+                if (searchInput) searchInput.value = '';
                 renderCategories();
                 renderProducts();
             });
         });
     }
 
-    // Renderizar rejilla de productos
     function renderProducts(filterQuery = '') {
         if (!CONFIG_MENU || !CONFIG_MENU.productos) return;
 
@@ -57,6 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredProducts = filteredProducts.filter(p => p.categoria === currentCategoryId);
         }
 
+        // 🌟 ORDEN ASCENDENTE AUTOMÁTICO POR PRECIO (DE MENOR A MAYOR)
+        filteredProducts.sort((a, b) => {
+            const priceA = a.precioCopa || a.precioBotella || a.precio || 0;
+            const priceB = b.precioCopa || b.precioBotella || b.precio || 0;
+            return priceA - priceB;
+        });
+
         if (filteredProducts.length === 0) {
             productsContainer.innerHTML = `<div style="text-align:center; padding: 40px; color: #888;">No se encontraron opciones disponibles.</div>`;
             return;
@@ -74,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (p.precioCopa && p.precioBotella) {
                 pricesHtml = `
                     <span class="price-tag">Q${p.precioCopa} <span class="price-label">copa</span></span>
-                    <span class="price-tag" style="font-size: 0.9rem; color: #666;">Q${p.precioBotella} <span class="price-label">botella</span></span>
+                    <span class="price-tag" style="font-size: 0.85rem; color: #666;">Q${p.precioBotella} <span class="price-label">botella</span></span>
                 `;
             } else if (p.precioBotella) {
                 pricesHtml = `<span class="price-tag">Q${p.precioBotella} <span class="price-label">botella</span></span>`;
@@ -88,8 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (p.cepa) subInfo.push(p.cepa);
             if (p.pais) subInfo.push(p.pais);
 
+            const imgPath = p.imagen || `img/botellas/${p.id}.png`;
+
             return `
                 <div class="product-card" data-id="${p.id}">
+                    <div class="product-thumb">
+                        <img src="${imgPath}" alt="${p.nombre}" onerror="this.onerror=null; this.src='${defaultBottleSVG}';">
+                    </div>
                     <div class="product-info">
                         ${badgeHtml}
                         <h3 class="product-title">${p.nombre}</h3>
@@ -100,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }).join('');
 
-        // Listener para abrir el modal al tocar una tarjeta
         document.querySelectorAll('.product-card').forEach(card => {
             card.addEventListener('click', () => {
                 const id = card.getAttribute('data-id');
@@ -109,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Desplegar modal detallado del producto
     function openModal(productId) {
         const p = CONFIG_MENU.productos.find(prod => prod.id === productId);
         if (!p) return;
@@ -127,13 +137,18 @@ document.addEventListener('DOMContentLoaded', () => {
             priceText = `Precio: Q${p.precio}`;
         }
 
+        const imgPath = p.imagen || `img/botellas/${p.id}.png`;
+
         modalBody.innerHTML = `
+            <div class="modal-img-container">
+                <img src="${imgPath}" alt="${p.nombre}" onerror="this.onerror=null; this.src='${defaultBottleSVG}';">
+            </div>
             <h3 class="modal-title">${p.nombre}</h3>
             <p style="color: #888; font-size: 0.85rem; margin-bottom: 8px;">${p.cepa ? p.cepa + ' · ' : ''}${p.pais ? 'Origen: ' + p.pais : ''}</p>
-            <p class="modal-desc">${p.descripcion || 'Selección especial para disfrutar en Viñamor Paseo Cayalá.'}</p>
+            <p class="modal-desc">${p.descripcion || 'Selección especial para disfrutar en la terraza de Paseo Cayalá.'}</p>
             ${pairingHtml}
             <div style="margin-top: 20px; text-align: right;">
-                <span style="font-size: 1.15rem; font-weight: 700; color: #2C1820;">
+                <span style="font-size: 1.15rem; font-weight: 700; color: #4A121A;">
                     ${priceText}
                 </span>
             </div>
@@ -141,18 +156,15 @@ document.addEventListener('DOMContentLoaded', () => {
         productModal.classList.add('active');
     }
 
-    // Eventos de cierre de modal
     closeModal.addEventListener('click', () => productModal.classList.remove('active'));
     productModal.addEventListener('click', (e) => { 
         if (e.target === productModal) productModal.classList.remove('active'); 
     });
 
-    // Evento del buscador en tiempo real
     if (searchInput) {
         searchInput.addEventListener('input', (e) => renderProducts(e.target.value));
     }
 
-    // Inicializar la aplicación
     renderCategories();
     renderProducts();
 });
